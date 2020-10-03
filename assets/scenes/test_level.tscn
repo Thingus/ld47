@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/plane.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://assets/ground.tres" type="PlaneMesh" id=2]
+[ext_resource path="res://scripts/plane.gd" type="Script" id=3]
+[ext_resource path="res://scripts/plane_following_camera.gd" type="Script" id=4]
+
+[sub_resource type="Skin" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+
+[sub_resource type="CapsuleShape" id=3]
+radius = 1.79008
+height = 3.57054
+
+[node name="Spatial" type="Spatial"]
+
+[node name="ground" type="MeshInstance" parent="."]
+transform = Transform( 100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0 )
+mesh = ExtResource( 2 )
+skin = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( -0.0845127, 0.996422, 0, -0.996422, -0.0845127, 0, 0, 0, 1, -12.3409, 42.1857, -29.5921 )
+
+[node name="plane" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.09521, 0 )
+script = ExtResource( 3 )
+
+[node name="PlaneMesh" type="MeshInstance" parent="plane"]
+mesh = ExtResource( 1 )
+material/0 = null
+
+[node name="Area" type="Area" parent="plane/PlaneMesh"]
+
+[node name="CollisionShape" type="CollisionShape" parent="plane/PlaneMesh/Area"]
+shape = SubResource( 3 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 0.0276693, -0.898391, 0.438324, -0.0582823, 0.436296, 0.897914, -0.997917, -0.0503912, -0.0402883, 14.5665, 19.8213, 0.913801 )
+fov = 105.811
+script = ExtResource( 4 )
