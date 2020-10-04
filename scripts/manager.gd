@@ -17,6 +17,7 @@ signal score_updated
 func _ready():
 	scene = get_tree()
 	goal_object = preload("res://Goal.tscn")
+	self.connect("score_updated", get_node("../score_label"), "_on_score_update")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -41,4 +42,6 @@ func _on_goal_hit():
 func _on_plane_crashed():
 	print("Plane crashed")
 	
+	
+# TODO Add reset button
 

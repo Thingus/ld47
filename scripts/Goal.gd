@@ -8,6 +8,7 @@ signal goal_hit
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	self.connect('goal_hit', get_node("../Manager"), "_on_goal_hit")
+	self.connect('goal_hit', get_node("../plane"), "_on_goal_hit")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
