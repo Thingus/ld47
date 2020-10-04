@@ -1,43 +1,287 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/plane.obj" type="ArrayMesh" id=1]
-[ext_resource path="res://assets/ground.tres" type="PlaneMesh" id=2]
-[ext_resource path="res://scripts/plane.gd" type="Script" id=3]
+[ext_resource path="res://models/ground_v3.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://scripts/plane_cont_controls.gd" type="Script" id=3]
 [ext_resource path="res://scripts/plane_following_camera.gd" type="Script" id=4]
+[ext_resource path="res://assets/tree_1.obj" type="ArrayMesh" id=5]
+[ext_resource path="res://Goal.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scripts/manager.gd" type="Script" id=7]
 
-[sub_resource type="Skin" id=1]
+[sub_resource type="SpatialMaterial" id=1]
 
-[sub_resource type="SpatialMaterial" id=2]
-
-[sub_resource type="CapsuleShape" id=3]
+[sub_resource type="CapsuleShape" id=2]
 radius = 1.79008
 height = 3.57054
 
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 8.2897, 0.308536, 9.32078 )
+
+[sub_resource type="MeshLibrary" id=6]
+
 [node name="Spatial" type="Spatial"]
 
-[node name="ground" type="MeshInstance" parent="."]
-transform = Transform( 100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0 )
-mesh = ExtResource( 2 )
-skin = SubResource( 1 )
-material/0 = SubResource( 2 )
+[node name="Manager" type="Node" parent="."]
+script = ExtResource( 7 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( -0.0845127, 0.996422, 0, -0.996422, -0.0845127, 0, 0, 0, 1, -12.3409, 42.1857, -29.5921 )
+transform = Transform( 0.0717955, 0.996274, -0.0477775, 0.05348, 0.043987, 0.9976, 0.995985, -0.0741783, -0.0501227, -90.5818, 60.9956, 4.55313 )
+light_color = Color( 0.443137, 0.807843, 0.713726, 1 )
+light_energy = 1.05
+light_bake_mode = 2
+shadow_enabled = true
+shadow_bias = 1.89
+shadow_reverse_cull_face = true
+directional_shadow_mode = 0
 
 [node name="plane" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.09521, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.58774, 0 )
 script = ExtResource( 3 )
 
 [node name="PlaneMesh" type="MeshInstance" parent="plane"]
 mesh = ExtResource( 1 )
-material/0 = null
+material/0 = SubResource( 1 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
 
 [node name="Area" type="Area" parent="plane/PlaneMesh"]
 
 [node name="CollisionShape" type="CollisionShape" parent="plane/PlaneMesh/Area"]
-shape = SubResource( 3 )
+shape = SubResource( 2 )
+
+[node name="TheLand" type="Spatial" parent="."]
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="ground" type="MeshInstance" parent="TheLand"]
+transform = Transform( 10, 0, 0, 0, 5, 0, 0, 0, 10, 0, -1.22383, 0 )
+mesh = ExtResource( 2 )
+material/0 = null
+__meta__ = {
+"_editor_description_": "	1"
+}
+
+[node name="kill_area" type="Area" parent="TheLand/ground"]
+collision_layer = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="TheLand/ground/kill_area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.431314, 0 )
+shape = SubResource( 5 )
+
+[node name="ground5" type="MeshInstance" parent="TheLand"]
+transform = Transform( 10, 0, 0, 0, 5, 0, 0, 0, 10, 0, -1.22383, -154 )
+mesh = ExtResource( 2 )
+material/0 = null
+__meta__ = {
+"_editor_description_": "	1"
+}
+
+[node name="kill_area" type="Area" parent="TheLand/ground5"]
+collision_layer = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="TheLand/ground5/kill_area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.431314, 0 )
+shape = SubResource( 5 )
+
+[node name="ground6" type="MeshInstance" parent="TheLand"]
+transform = Transform( 10, 0, 0, 0, 5, 0, 0, 0, 10, 153, -1.22383, -154 )
+mesh = ExtResource( 2 )
+material/0 = null
+__meta__ = {
+"_editor_description_": "	1"
+}
+
+[node name="kill_area" type="Area" parent="TheLand/ground6"]
+collision_layer = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="TheLand/ground6/kill_area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.431314, 0 )
+shape = SubResource( 5 )
+
+[node name="ground7" type="MeshInstance" parent="TheLand"]
+transform = Transform( 10, 0, 0, 0, 5, 0, 0, 0, 10, -152, -1.22383, -154 )
+mesh = ExtResource( 2 )
+material/0 = null
+__meta__ = {
+"_editor_description_": "	1"
+}
+
+[node name="kill_area" type="Area" parent="TheLand/ground7"]
+collision_layer = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="TheLand/ground7/kill_area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.431314, 0 )
+shape = SubResource( 5 )
+
+[node name="ground8" type="MeshInstance" parent="TheLand"]
+transform = Transform( 10, 0, 0, 0, 5, 0, 0, 0, 10, -152, -1.22383, 4 )
+mesh = ExtResource( 2 )
+material/0 = null
+__meta__ = {
+"_editor_description_": "	1"
+}
+
+[node name="kill_area" type="Area" parent="TheLand/ground8"]
+collision_layer = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="TheLand/ground8/kill_area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.431314, 0 )
+shape = SubResource( 5 )
+
+[node name="ground9" type="MeshInstance" parent="TheLand"]
+transform = Transform( 10, 0, 0, 0, 5, 0, 0, 0, 10, -152, -1.22383, 158 )
+mesh = ExtResource( 2 )
+material/0 = null
+__meta__ = {
+"_editor_description_": "	1"
+}
+
+[node name="kill_area" type="Area" parent="TheLand/ground9"]
+collision_layer = 2147483650
+
+[node name="CollisionShape" type="CollisionShape" parent="TheLand/ground9/kill_area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.431314, 0 )
+shape = SubResource( 5 )
+
+[node name="ground4" type="MeshInstance" parent="TheLand"]
+transform = Transform( 10, 0, 0, 0, 5, 0, 0, 0, 10, 156, -1.22383, 0 )
+mesh = ExtResource( 2 )
+material/0 = null
+__meta__ = {
+"_editor_description_": "	1"
+}
+
+[node name="kill_area" type="Area" parent="TheLand/ground4"]
+collision_layer = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="TheLand/ground4/kill_area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.431314, 0 )
+shape = SubResource( 5 )
+
+[node name="ground2" type="MeshInstance" parent="TheLand"]
+transform = Transform( 10, 0, 0, 0, 5, 0, 0, 0, 10, 0, -1.22383, 158 )
+mesh = ExtResource( 2 )
+material/0 = null
+__meta__ = {
+"_editor_description_": "	1"
+}
+
+[node name="kill_area" type="Area" parent="TheLand/ground2"]
+collision_layer = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="TheLand/ground2/kill_area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.431314, 0 )
+shape = SubResource( 5 )
+
+[node name="ground3" type="MeshInstance" parent="TheLand"]
+transform = Transform( -4.37114e-07, 0, -10, 0, 5, 0, 10, 0, -4.37114e-07, 156, 0.776169, 158 )
+mesh = ExtResource( 2 )
+material/0 = null
+__meta__ = {
+"_editor_description_": "	1"
+}
+
+[node name="kill_area" type="Area" parent="TheLand/ground3"]
+collision_layer = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="TheLand/ground3/kill_area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.431314, 0 )
+shape = SubResource( 5 )
+
+[node name="trees" type="Spatial" parent="."]
+
+[node name="tree_1" type="MeshInstance" parent="trees"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.8144, -2.44954, 13.7164 )
+mesh = ExtResource( 5 )
+material/0 = null
+material/1 = null
+material/2 = null
+
+[node name="tree_2" type="MeshInstance" parent="trees"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.97453, -2.44954, -14.2097 )
+mesh = ExtResource( 5 )
+material/0 = null
+material/1 = null
+material/2 = null
+
+[node name="tree_3" type="MeshInstance" parent="trees"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -31.1864, -2.44954, 7.9435 )
+mesh = ExtResource( 5 )
+material/0 = null
+material/1 = null
+material/2 = null
+
+[node name="tree_4" type="MeshInstance" parent="trees"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.3, -2.40963, -22.4963 )
+mesh = ExtResource( 5 )
+material/0 = null
+material/1 = null
+material/2 = null
+
+[node name="tree_5" type="MeshInstance" parent="trees"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20.0869, -3.16754, 29.6733 )
+mesh = ExtResource( 5 )
+material/0 = null
+material/1 = null
+material/2 = null
+
+[node name="tree_6" type="MeshInstance" parent="trees"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.4506, -2.44954, -21.3602 )
+mesh = ExtResource( 5 )
+material/0 = null
+material/1 = null
+material/2 = null
+
+[node name="tree_7" type="MeshInstance" parent="trees"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -54.3424, -2.44954, 44.1141 )
+mesh = ExtResource( 5 )
+material/0 = null
+material/1 = null
+material/2 = null
+
+[node name="tree_8" type="MeshInstance" parent="trees"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 35.5883, -2.44954, 7.9435 )
+mesh = ExtResource( 5 )
+material/0 = null
+material/1 = null
+material/2 = null
+
+[node name="tree_9" type="MeshInstance" parent="trees"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.2361, -2.44954, -6.21866 )
+mesh = ExtResource( 5 )
+material/0 = null
+material/1 = null
+material/2 = null
+
+[node name="tree_10" type="MeshInstance" parent="trees"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.2361, -2.44954, 29.2899 )
+mesh = ExtResource( 5 )
+material/0 = null
+material/1 = null
+material/2 = null
+
+[node name="Goal" parent="." instance=ExtResource( 6 )]
+transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 1, 0, 7.20422, 7.65023 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 0.0276693, -0.898391, 0.438324, -0.0582823, 0.436296, 0.897914, -0.997917, -0.0503912, -0.0402883, 14.5665, 19.8213, 0.913801 )
-fov = 105.811
+transform = Transform( -0.866025, 0.353554, -0.353554, 0, 0.707107, 0.707107, 0.5, 0.612372, -0.612372, -20.0119, 46.6595, -46.7415 )
+projection = 1
+current = true
+size = 106.246
+near = 0.02
+far = 474.7
 script = ExtResource( 4 )
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = SubResource( 6 )
+data = {
+"cells": PoolIntArray(  )
+}
+__meta__ = {
+"_editor_clip_": 0
+}
+[connection signal="area_entered" from="TheLand/ground/kill_area" to="plane" method="_on_kill_area_entered"]
